@@ -20,12 +20,9 @@ while True:
     # Создаем список сокетов
     chat_client.append(sock)
     # Очищаем стандартный список после прохождение цикла
-    in_client = []
-    out_client = []
+    soc_client = []
     # присваеваем списку, активных клиентов что могут читать и писать
     soc_client, _ , _ = select.select(chat_client, [], [], 1)
-    print('in - {}'.format(in_client))
-    print('out - {}'.format(out_client))
     #проходимся по списку что нам что то прислали
     for l_client in soc_client:
         try:
