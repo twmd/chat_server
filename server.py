@@ -36,5 +36,8 @@ while True:
         try:
             # Функция отсылает данные
             libsrv.response_message(l_client)
+            #TODO: Удалить, т.к клиент будет держать сессию
+            chat_client.remove(l_client)
+
         except:
             chat_client.remove(l_client)
