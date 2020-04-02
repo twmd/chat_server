@@ -23,11 +23,11 @@ while True:
     in_client = []
     out_client = []
     # присваеваем списку, активных клиентов что могут читать и писать
-    in_client, out_client, _ = select.select(chat_client, chat_client, [], 1)
+    soc_client, _ , _ = select.select(chat_client, [], [], 1)
     print('in - {}'.format(in_client))
     print('out - {}'.format(out_client))
     #проходимся по списку что нам что то прислали
-    for l_client in in_client:
+    for l_client in soc_client:
         try:
             # Тест для вывода сообщений сервера
             print(libsrv.get_data_from_socket(l_client))
@@ -35,7 +35,7 @@ while True:
             #удаляем если вернулась ошибка из общего списка
             chat_client.remove(l_client)
     # проходимся по списку клиентов на отправку
-    for l_client in out_client:
+    for l_client in soc_client:
         try:
             # Функция отсылает данные
             libsrv.response_message(l_client)
