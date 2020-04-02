@@ -24,6 +24,8 @@ while True:
     out_client = []
     # присваеваем списку, активных клиентов что могут читать и писать
     in_client, out_client, _ = select.select(chat_client, chat_client, [], 1)
+    print('in - {}'.format(in_client))
+    print('out - {}'.format(out_client))
     #проходимся по списку что нам что то прислали
     for l_client in in_client:
         try:
