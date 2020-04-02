@@ -4,7 +4,7 @@ import logging
 import logging.config
 from functools import wraps
 
-LOG_ON = False
+LOG_ON = True
 
 
 logging.config.fileConfig(fname='log_config.py')
