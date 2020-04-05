@@ -28,6 +28,9 @@ def action_from_client(action):
 
     }
 
+#Отсылает сообщения в чат
+def send_message_all_in_chat(sock ,message):
+    sock.send(message)
 
 # Отсылает ответ клиенту. В зависимости от типа allert или error
 @log
