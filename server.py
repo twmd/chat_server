@@ -20,14 +20,15 @@ while True:
     # Создаем список сокетов
     chat_client.append(sock)
     # Очищаем стандартный список после прохождение цикла
-    # soc_client_r = []
-    # soc_client_w = []
+    soc_client_r = []
+    soc_client_w = []
     # присваеваем списку, активных клиентов что могут читать и писать
     _, soc_client_w, _ = select.select([], chat_client, [], 1)
     # проходимся по списку что нам что то прислали
     print(i)
     i += 1
     for r_client in soc_client_w:
+        print('r_client = {}'.format(r_client))
         try:
             # Тест для вывода сообщений сервера
             data = libsrv.get_data_from_socket(r_client)
