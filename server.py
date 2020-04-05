@@ -21,10 +21,12 @@ while True:
     chat_client.append(sock)
     # Очищаем стандартный список после прохождение цикла
     soc_client_r = []
+    soc_client_w = []
     # присваеваем списку, активных клиентов что могут читать и писать
     soc_client_r, soc_client_w, _ = select.select(chat_client, chat_client, [], 1)
     # проходимся по списку что нам что то прислали
-    # print(soc_client_r)
+    print(soc_client_r)
+    print(soc_client_w)
     for r_client in soc_client_r:
         try:
             # Тест для вывода сообщений сервера
