@@ -30,6 +30,7 @@ while True:
             data = libsrv.get_data_from_socket(r_client)
             if data.get('action') == 'msg':
                 for w_client in soc_client:
+                    print(data.get('message'))
                     libsrv.send_message_all_in_chat(w_client, data.get('message'))
         except:
             # удаляем если вернулась ошибка из общего списка
