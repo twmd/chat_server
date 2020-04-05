@@ -36,6 +36,7 @@ while True:
         except:
             # удаляем если вернулась ошибка из общего списка
             chat_client.remove(r_client)
+            print('error')
 # проходимся по списку клиентов на отправку
 # for l_client in soc_client:
 #     try:
