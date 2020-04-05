@@ -28,6 +28,7 @@ while True:
     print(soc_client_r)
     print(soc_client_w)
     for r_client in soc_client_r:
+        print('1')
         try:
             # Тест для вывода сообщений сервера
             data = libsrv.get_data_from_socket(r_client)
