@@ -21,7 +21,7 @@ while True:
     chat_client.append(sock)
     # Очищаем стандартный список после прохождение цикла
     # soc_client_r = []
-    soc_client_w = []
+    # soc_client_w = []
     # присваеваем списку, активных клиентов что могут читать и писать
     _, soc_client_w, _ = select.select([], chat_client, [], 1)
     # проходимся по списку что нам что то прислали
