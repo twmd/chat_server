@@ -16,7 +16,8 @@ def get_data_from_socket(sock):
 # Заготовка
 # @log
 def action_from_client(data):
-    print(data.get(action))
+    print('123')
+    print(data)
     action_dist = {
         'presence': None,
         'prоbe': None,

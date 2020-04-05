@@ -28,7 +28,7 @@ while True:
         try:
             # Тест для вывода сообщений сервера
             data = libsrv.get_data_from_socket(l_client)
-            print(data)
+            # print(data)
             #Печатет поло action
             libsrv.action_from_client(data)
         except:
