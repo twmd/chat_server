@@ -41,5 +41,6 @@ while True:
             libsrv.response_message(l_client)
             #TODO: Удалить, т.к клиент будет держать сессию
             chat_client.remove(l_client)
-        # except:
+        except as e:
+            print(e)
         #     chat_client.remove(l_client)
