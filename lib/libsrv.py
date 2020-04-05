@@ -14,7 +14,7 @@ def get_data_from_socket(sock):
 
 # обрабатывае какое сообщение отсылать Описанны типы сообщений.
 # Заготовка
-@log
+# @log
 def action_from_client(data):
     print(data.get(action))
     action_dist = {
