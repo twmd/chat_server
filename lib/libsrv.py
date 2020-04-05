@@ -32,6 +32,7 @@ def get_data_from_socket(sock):
 #     }
 
 # Отсылает сообщения в чат
+@log
 def send_message_all_in_chat(sock, message):
     msg = {
         "action": 'msg',
