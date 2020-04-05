@@ -10,7 +10,7 @@ from lib.common import log as log
 def get_data_from_socket(sock):
     client_data_buf = sock.recv(1024)
     client_data = json.loads(client_data_buf.decode())
-    print(client_data)
+    # print(client_data)
     return client_data
 
 
