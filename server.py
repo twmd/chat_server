@@ -14,8 +14,10 @@ try:
 except OSError:
     print('Неправельно указан адрес или порт')
 server_socket.listen(100)
-
+i = 1
 while True:
+    print(i)
+    i += 1
     sock, addr = server_socket.accept()
     # Создаем список сокетов
     chat_client.append(sock)
