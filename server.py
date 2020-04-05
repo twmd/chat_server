@@ -24,10 +24,10 @@ while True:
     # присваеваем списку, активных клиентов что могут читать и писать
     soc_client, _, _ = select.select(chat_client, [], [], 1)
     # проходимся по списку что нам что то прислали
+    print(soc_client)
     for r_client in soc_client:
         try:
             # Тест для вывода сообщений сервера
-            print(r_client)
             data = libsrv.get_data_from_socket(r_client)
             print(data)
             if data.get('action') == 'msg':
