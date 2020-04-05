@@ -20,18 +20,18 @@ while True:
     # Создаем список сокетов
     chat_client.append(sock)
     # Очищаем стандартный список после прохождение цикла
-    soc_client = []
+    soc_client_r = []
     # присваеваем списку, активных клиентов что могут читать и писать
-    soc_client, _, _ = select.select(chat_client, [], [], 1)
+    soc_client_r, soc_client_w, _ = select.select(chat_client, chat_client, [], 1)
     # проходимся по списку что нам что то прислали
-    print(soc_client)
-    for r_client in soc_client:
+    # print(soc_client_r)
+    for r_client in soc_client_r:
         try:
             # Тест для вывода сообщений сервера
             data = libsrv.get_data_from_socket(r_client)
             print(data)
             if data.get('action') == 'msg':
-                for w_client in soc_client:
+                for w_client in soc_client_w:
                     print(data.get('message'))
                     libsrv.send_message_all_in_chat(w_client, data.get('message'))
         except:
@@ -39,7 +39,7 @@ while True:
             chat_client.remove(r_client)
             print('error')
 # проходимся по списку клиентов на отправку
-# for l_client in soc_client:
+# for l_client in soc_client_r:
 #     try:
 #         # Функция отсылает данные
 #         libsrv.response_message(l_client)
