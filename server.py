@@ -27,7 +27,10 @@ while True:
     for l_client in soc_client:
         try:
             # Тест для вывода сообщений сервера
-            print(libsrv.get_data_from_socket(l_client))
+            data = libsrv.get_data_from_socket(l_client)
+            print(data)
+            #Печатет поло action
+            libsrv.action_from_client(data)
         except:
             #удаляем если вернулась ошибка из общего списка
             chat_client.remove(l_client)
@@ -36,6 +39,7 @@ while True:
         try:
             # Функция отсылает данные
             libsrv.response_message(l_client)
+
             #TODO: Удалить, т.к клиент будет держать сессию
             chat_client.remove(l_client)
 

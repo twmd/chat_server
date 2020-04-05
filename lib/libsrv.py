@@ -15,8 +15,8 @@ def get_data_from_socket(sock):
 # обрабатывае какое сообщение отсылать Описанны типы сообщений.
 # Заготовка
 @log
-def action_from_client(action):
-    pass
+def action_from_client(data):
+    print(data.get(action))
     action_dist = {
         'presence': None,
         'prоbe': None,
@@ -29,8 +29,19 @@ def action_from_client(action):
     }
 
 #Отсылает сообщения в чат
-def send_message_all_in_chat(sock ,message):
-    sock.send(message)
+# def send_message_all_in_chat(sock ,message):
+#     msg = {
+#         "action" : 'msg' ,
+#         "time" : datetime.datetime.now().timestamp(),
+#         "to" : 'all' ,
+#         "from" : 'all' ,
+#         "encoding" : "ascii" ,
+#         "message" : message
+#             }
+#
+#     msg_json = json.dumps(msg)
+#     buf = msg_json.encode()
+#     sock.send(buf)
 
 # Отсылает ответ клиенту. В зависимости от типа allert или error
 @log
