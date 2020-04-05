@@ -2,6 +2,7 @@ import json
 import datetime
 from lib.common import log as log
 
+
 # TODO: Доделать по выбору action.
 # Принимаеет сообщение от клиента, смотрит на поле action, выбирает дальнейшее действие
 
@@ -15,34 +16,35 @@ def get_data_from_socket(sock):
 # обрабатывае какое сообщение отсылать Описанны типы сообщений.
 # Заготовка
 # @log
-def action_from_client(data):
-    print('123')
-    print(data.get('action'))
-    action_dist = {
-        'presence': None,
-        'prоbe': None,
-        'msg': None,
-        'quit': None,
-        'authenticate': None,
-        'join': None,
-        'leave': None
+# def action_from_client(data):
+#     print('123')
+#     print(data.get('action'))
+#     action_dist = {
+#         'presence': None,
+#         'prоbe': None,
+#         'msg': None,
+#         'quit': None,
+#         'authenticate': None,
+#         'join': None,
+#         'leave': None
+#
+#     }
 
+# Отсылает сообщения в чат
+def send_message_all_in_chat(sock, message):
+    msg = {
+        "action": 'msg',
+        "time": datetime.datetime.now().timestamp(),
+        "to": 'all',
+        "from": 'all',
+        "encoding": "ascii",
+        "message": message
     }
 
-#Отсылает сообщения в чат
-# def send_message_all_in_chat(sock ,message):
-#     msg = {
-#         "action" : 'msg' ,
-#         "time" : datetime.datetime.now().timestamp(),
-#         "to" : 'all' ,
-#         "from" : 'all' ,
-#         "encoding" : "ascii" ,
-#         "message" : message
-#             }
-#
-#     msg_json = json.dumps(msg)
-#     buf = msg_json.encode()
-#     sock.send(buf)
+    msg_json = json.dumps(msg)
+    buf = msg_json.encode()
+    sock.send(buf)
+
 
 # Отсылает ответ клиенту. В зависимости от типа allert или error
 @log

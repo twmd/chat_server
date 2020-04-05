@@ -1,4 +1,4 @@
-#TODO: Переделать все на функции, возможно классы. Добавить исключения. Добавить тесты
+# TODO: Переделать все на функции, возможно классы. Добавить исключения. Добавить тесты
 import select
 import socket
 import lib.libsrv as libsrv
@@ -22,24 +22,24 @@ while True:
     # Очищаем стандартный список после прохождение цикла
     soc_client = []
     # присваеваем списку, активных клиентов что могут читать и писать
-    soc_client, _ , _ = select.select(chat_client, [], [], 1)
-    #проходимся по списку что нам что то прислали
-    for l_client in soc_client:
+    soc_client, _, _ = select.select(chat_client, [], [], 1)
+    # проходимся по списку что нам что то прислали
+    for r_client in soc_client:
         try:
             # Тест для вывода сообщений сервера
-            data = libsrv.get_data_from_socket(l_client)
-            print(data.get('action'))
-            #Печатет поло action
-            # libsrv.action_from_client(data)
+            data = libsrv.get_data_from_socket(r_client)
+            if data.get('action') == 'msg':
+                for w_client in soc_client:
+                    libsrv.send_message_all_in_chat(w_client, data.get('message'))
         except:
-            #удаляем если вернулась ошибка из общего списка
-            chat_client.remove(l_client)
-    # проходимся по списку клиентов на отправку
-    for l_client in soc_client:
-        try:
-            # Функция отсылает данные
-            libsrv.response_message(l_client)
-            #TODO: Удалить, т.к клиент будет держать сессию
-        except:
-            print('Error')
-        #     chat_client.remove(l_client)
+            # удаляем если вернулась ошибка из общего списка
+            chat_client.remove(r_client)
+# проходимся по списку клиентов на отправку
+# for l_client in soc_client:
+#     try:
+#         # Функция отсылает данные
+#         libsrv.response_message(l_client)
+#         # TODO: Удалить, т.к клиент будет держать сессию
+#     except:
+#         print('Error')
+#     #     chat_client.remove(l_client)
