@@ -14,10 +14,7 @@ try:
 except OSError:
     print('Неправельно указан адрес или порт')
 server_socket.listen(100)
-i = 1
 while True:
-    print(i)
-    i += 1
     sock, addr = server_socket.accept()
     # Создаем список сокетов
     chat_client.append(sock)
@@ -35,17 +32,8 @@ while True:
             if data.get('action') == 'msg':
                 for w_client in soc_client_w:
                     print(data.get('message'))
-                    libsrv.send_message_all_in_chat(w_client, data.get('message'))
+                    # libsrv.send_message_all_in_chat(w_client, data.get('message'))
         except:
             # удаляем если вернулась ошибка из общего списка
             chat_client.remove(r_client)
             print('error')
-# проходимся по списку клиентов на отправку
-# for l_client in soc_client_r:
-#     try:
-#         # Функция отсылает данные
-#         libsrv.response_message(l_client)
-#         # TODO: Удалить, т.к клиент будет держать сессию
-#     except:
-#         print('Error')
-#     #     chat_client.remove(l_client)
