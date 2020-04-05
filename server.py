@@ -28,7 +28,7 @@ while True:
         try:
             # Тест для вывода сообщений сервера
             data = libsrv.get_data_from_socket(r_client)
-            data.get('action')
+            print(data.get('action'))
             if data.get('action') == 'msg':
                 for w_client in soc_client:
                     print(data.get('message'))
