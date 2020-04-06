@@ -23,19 +23,19 @@ while True:
     soc_client_r = []
     soc_client_w = []
     # присваеваем списку, активных клиентов что могут читать и писать
-    _, soc_client_w, _ = select.select([], chat_client, [], 1)
+    soc_client_r , soc_client_w, _ = select.select(chat_client, chat_client, [], 1)
     # проходимся по списку что нам что то прислали
-    print(i)
-    i += 1
+    print(soc_client_r)
     print(soc_client_w)
-    for r_client in soc_client_w:
+    for r_client in soc_client_r:
         print('r_client = {}'.format(r_client))
         try:
             # Тест для вывода сообщений сервера
             data = libsrv.get_data_from_socket(r_client)
             if data.get('action') == 'msg':
-                for w_client in soc_client_w:
-                    print(data.get('message'))
+                print(data.get('message'))
+                # for w_client in soc_client_w:
+                #     print(data.get('message'))
                     # libsrv.send_message_all_in_chat(w_client, data.get('message'))
         except:
             # удаляем если вернулась ошибка из общего списка
