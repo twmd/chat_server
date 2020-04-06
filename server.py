@@ -23,11 +23,9 @@ while True:
     soc_client_r = []
     soc_client_w = []
     # присваеваем списку, активных клиентов что могут читать и писать
-    soc_client_r , soc_client_w, _ = select.select(chat_client, chat_client, [], 1)
+    _ , soc_client_w, _ = select.select([], chat_client, [], 1)
     # проходимся по списку что нам что то прислали
-    print(soc_client_r)
-    print(soc_client_w)
-    for r_client in soc_client_r:
+    for r_client in soc_client_w:
         print('r_client = {}'.format(r_client))
         try:
             # Тест для вывода сообщений сервера
