@@ -37,7 +37,8 @@ while chat_client_in:
         try:
             libsrv.send_message_all_in_chat(s, data.get('message'))
         except:
-            chat_client_out.remove(s)
+            print('Error')
+            # chat_client_out.remove(s)
 
 
 #Удаляет ошибочные сокеты
