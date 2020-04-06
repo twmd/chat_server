@@ -36,6 +36,7 @@ while chat_client_in:
     for s in soc_client_r:
         try:
             libsrv.send_message_all_in_chat(s, data.get('message'))
+            print(data.get('message'))
         except:
             print('Error')
             # chat_client_out.remove(s)
