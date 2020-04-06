@@ -27,7 +27,7 @@ while chat_client_in:
             try:
                 data = libsrv.get_data_from_socket(s)
                 if data.get('action') == 'msg':
-                    print(data.get('message'))
+                    # print(data.get('message'))
                     if s not in chat_client_out:
                         chat_client_out.append(s)
             except:
