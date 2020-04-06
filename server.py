@@ -13,7 +13,7 @@ try:
 except OSError:
     print('Неправельно указан адрес или порт')
 server_socket.listen(100)
-chat_client_in = server_socket
+chat_client_in = [server_socket]
 chat_client_out = []
 
 while chat_client_in:
