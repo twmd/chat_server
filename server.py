@@ -18,6 +18,7 @@ chat_client_out = []
 
 while chat_client_in:
     soc_client_r, soc_client_w, soc_client_e = select.select(chat_client_in, chat_client_out, chat_client_in, 1)
+#Получает данные от клиента
     for s in soc_client_r:
         if s is server_socket:
             sock, addr = s.accept()
@@ -31,6 +32,25 @@ while chat_client_in:
                         chat_client_out.append(s)
             except:
                 chat_client_in.remove(s)
+#Отсылает данные клиенту
+    for s in soc_client_w:
+        try:
+            libsrv.send_message_all_in_chat(s, data.get('message'))
+        except:
+            chat_client_out.remove(s)
+
+
+#Удаляет ошибочные сокеты
+    for s in soc_client_e:
+        chat_client_in.remove(s)
+        if s in chat_client_out:
+            chat_client_out.remove(s)
+        s.close()
+
+
+
+
+
 # while True:
 #     sock, addr = server_socket.accept()
 #     # Создаем список сокетов
