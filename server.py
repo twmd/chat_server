@@ -14,7 +14,6 @@ try:
 except OSError:
     print('Неправельно указан адрес или порт')
 server_socket.listen(100)
-i = 1
 while True:
     sock, addr = server_socket.accept()
     # Создаем список сокетов
