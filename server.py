@@ -23,12 +23,14 @@ while chat_client_in:
             sock, addr = s.accept()
             chat_client_in.append(sock)
         else:
-            data = libsrv.get_data_from_socket(s)
-            if data.get('action') == 'msg':
-                print(data.get('message'))
-                if s not in chat_client_out:
-                    chat_client_out.append(s)
-
+            try:
+                data = libsrv.get_data_from_socket(s)
+                if data.get('action') == 'msg':
+                    print(data.get('message'))
+                    if s not in chat_client_out:
+                        chat_client_out.append(s)
+            except:
+                chat_client_in.remove(s)
 # while True:
 #     sock, addr = server_socket.accept()
 #     # Создаем список сокетов
