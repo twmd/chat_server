@@ -33,7 +33,7 @@ while chat_client_in:
             except:
                 chat_client_in.remove(s)
 #Отсылает данные клиенту
-    for s in soc_client_w:
+    for s in soc_client_r:
         try:
             libsrv.send_message_all_in_chat(s, data.get('message'))
         except:
