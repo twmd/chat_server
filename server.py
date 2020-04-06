@@ -27,6 +27,7 @@ while True:
     # проходимся по списку что нам что то прислали
     print(i)
     i += 1
+    print(soc_client_w)
     for r_client in soc_client_w:
         print('r_client = {}'.format(r_client))
         try:
