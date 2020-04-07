@@ -41,7 +41,7 @@ while chat_client_in:
                 # print(data.get('message'))
             except Exception as e:
                 print(e)
-                chat_client_out.remove(s)
+                chat_client_in.remove(s)
 
     # Удаляет ошибочные сокеты
     for s in soc_client_e:
