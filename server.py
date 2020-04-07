@@ -3,7 +3,6 @@ import select
 import socket
 import lib.libsrv as libsrv
 import lib.common as common
-import json
 
 # Получить адресс и порт из функции
 address, port = common.getting_arguments()
@@ -20,6 +19,7 @@ chat_client_in = [server_socket]
 while chat_client_in:
     data = {}
     soc_client_r, soc_client_w, soc_client_e = select.select(chat_client_in, chat_client_in, chat_client_in, 1)
+
     # Получает данные от клиента
     for s in soc_client_r:
         if s is server_socket:
@@ -29,16 +29,17 @@ while chat_client_in:
             try:
                 data = libsrv.get_data_from_socket(s)
                 if data.get('action') == 'msg':
-                    print(data.get('message'))
-            except:
+            except Exception as e:
                 chat_client_in.remove(s)
+                print(e)
+
     # Отсылает данные клиенту
     for s in soc_client_w:
         if data:
             try:
-                print(s)
+                # print(s)
                 libsrv.send_message_all_in_chat(s, data.get('message'))
-                print(data.get('message'))
+                # print(data.get('message'))
             except Exception as e:
                 print(e)
                 chat_client_out.remove(s)
@@ -46,31 +47,5 @@ while chat_client_in:
     # Удаляет ошибочные сокеты
     for s in soc_client_e:
         chat_client_in.remove(s)
-        if s in chat_client_out:
-            chat_client_out.remove(s)
         s.close()
 
-# while True:
-#     sock, addr = server_socket.accept()
-#     # Создаем список сокетов
-#     chat_client.append(sock)
-#     # Очищаем стандартный список после прохождение цикла
-#     soc_client_r = []
-#     soc_client_w = []
-#     # присваеваем списку, активных клиентов что могут читать и писать
-#     _ , soc_client_w, _ = select.select([], chat_client, [], 1)
-#     # проходимся по списку что нам что то прислали
-#     for r_client in soc_client_w:
-#         print('r_client = {}'.format(r_client))
-#         try:
-#             # Тест для вывода сообщений сервера
-#             data = libsrv.get_data_from_socket(r_client)
-#             if data.get('action') == 'msg':
-#                 print(data.get('message'))
-#                 # for w_client in soc_client_w:
-#                 #     print(data.get('message'))
-#                     # libsrv.send_message_all_in_chat(w_client, data.get('message'))
-#         except:
-#             # удаляем если вернулась ошибка из общего списка
-#             chat_client.remove(r_client)
-#             print('error')
