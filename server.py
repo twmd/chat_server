@@ -3,6 +3,7 @@ import select
 import socket
 import lib.libsrv as libsrv
 import lib.common as common
+import json
 
 # Получить адресс и порт из функции
 address, port = common.getting_arguments()
@@ -14,11 +15,12 @@ except OSError:
     print('Неправельно указан адрес или порт')
 server_socket.listen(100)
 chat_client_in = [server_socket]
-chat_client_out = []
+# chat_client_out = []
 
 while chat_client_in:
-    soc_client_r, soc_client_w, soc_client_e = select.select(chat_client_in, chat_client_out, chat_client_in, 1)
-#Получает данные от клиента
+    data = {}
+    soc_client_r, soc_client_w, soc_client_e = select.select(chat_client_in, chat_client_in, chat_client_in, 1)
+    # Получает данные от клиента
     for s in soc_client_r:
         if s is server_socket:
             sock, addr = s.accept()
@@ -27,32 +29,26 @@ while chat_client_in:
             try:
                 data = libsrv.get_data_from_socket(s)
                 if data.get('action') == 'msg':
-                    # print(data.get('message'))
-                    if s not in chat_client_out:
-                        chat_client_out.append(s)
+                    print(data.get('message'))
             except:
                 chat_client_in.remove(s)
-#Отсылает данные клиенту
+    # Отсылает данные клиенту
     for s in soc_client_w:
-        try:
-            libsrv.send_message_all_in_chat(s, data.get('message'))
-            print(data.get('message'))
-            print(s)
-        except:
-            print('Error')
-            # chat_client_out.remove(s)
+        if data:
+            try:
+                print(s)
+                libsrv.send_message_all_in_chat(s, data.get('message'))
+                print(data.get('message'))
+            except Exception as e:
+                print(e)
+                chat_client_out.remove(s)
 
-
-#Удаляет ошибочные сокеты
+    # Удаляет ошибочные сокеты
     for s in soc_client_e:
         chat_client_in.remove(s)
         if s in chat_client_out:
             chat_client_out.remove(s)
         s.close()
-
-
-
-
 
 # while True:
 #     sock, addr = server_socket.accept()
