@@ -28,7 +28,6 @@ while chat_client_in:
         else:
             try:
                 data = libsrv.get_data_from_socket(s)
-                if data.get('action') == 'msg':
             except Exception as e:
                 chat_client_in.remove(s)
                 print(e)
