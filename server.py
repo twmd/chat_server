@@ -3,7 +3,9 @@ import select
 import socket
 import lib.libsrv as libsrv
 import lib.common as common
+from lib.common import log as log
 
+@log
 def client_connection():
     # Получить адресс и порт из функции
     address, port = common.getting_arguments()
@@ -13,9 +15,9 @@ def client_connection():
         server_socket.bind((address, port))
     except OSError:
         print('Неправельно указан адрес или порт')
+    #Максимальное кол-во клиентов
     server_socket.listen(100)
     chat_client_in = [server_socket]
-    # chat_client_out = []
 
     while chat_client_in:
         data = {}
